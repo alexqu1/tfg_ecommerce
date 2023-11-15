@@ -15,21 +15,19 @@ app.use(express.json());
 
  mongoose.connect('mongodb+srv://alexdiazcalero:EIx9PEFiPTdOA2zF@cluster0.3zengf7.mongodb.net/?retryWrites=true&w=majority')
 
-app.post('/register', async (req,res) =>{
+ app.post('/register', async (req,res) => {
     const {username,password} = req.body;
-    //agregamos try catch para que no se pueda registrar 2 veces el mismo usuario 
-    try {
-        const userDoc =   await User.create({username,
-            password:bcrypt.hashSync(password,salt),
-        });
-        res.cookie('token',token).json('ok');
-    
-    } catch (e) {
-        res.status(400).json(e);
+    try{
+      const userDoc = await User.create({
+        username,
+        password:bcrypt.hashSync(password,salt),
+      });
+      res.json(userDoc);
+    } catch(e) {
+      console.log(e);
+      res.status(400).json(e);
     }
-
-
-});
+  });
 
 app.post('/login', async (req,res) =>{
     const {username,password} = req.body;
