@@ -5,15 +5,16 @@ const User=require('./models/User');
 const bcrypt= require('bcryptjs');
 const app = express();
 const jwt = require('jsonwebtoken');
+const cookieParser = require('cookie-parser')
 
 //encriptacion aleatoria bcrypt
 const salt = bcrypt.genSaltSync(10);
 const secret = "23dhsajkdhsalkhlh22171"
 app.use(cors({credentials:true,origin:'http://localhost:3000'}));
-
 app.use(express.json());
+app.use(cookieParser());
+mongoose.connect('mongodb+srv://alexdiazcalero:EIx9PEFiPTdOA2zF@cluster0.3zengf7.mongodb.net/?retryWrites=true&w=majority')
 
- mongoose.connect('mongodb+srv://alexdiazcalero:EIx9PEFiPTdOA2zF@cluster0.3zengf7.mongodb.net/?retryWrites=true&w=majority')
 
  app.post('/register', async (req,res) => {
     const {username,password} = req.body;
@@ -44,6 +45,17 @@ app.post('/login', async (req,res) =>{
     } else {
         res.status(400).json('Usuario o contraseña incorrecto')
     }
+
+});
+
+app.get('/profile', (req,res) => {
+    const {token} = req.cookies;
+    jwt.verify(token,secret,{},(err,info)=>{
+      if (err) throw err;
+      res.json(info);
+        
+      
+    });
 
 });
 
