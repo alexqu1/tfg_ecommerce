@@ -1,5 +1,5 @@
 import { useState } from "react";
-
+import { Navigate } from "react-router-dom";
 export default function LoginPage() {
     const [username,setUsername] = useState('');
     const [password,setPassword] = useState('');
@@ -15,20 +15,23 @@ export default function LoginPage() {
       method:'POST', 
       body: JSON.stringify({username,password}),
       headers:{'Content-Type':'application/json'},
-      credentials:'include'
+      credentials:'include',
   });
 
     if(response.ok){
       alert('incio correctamente');
       setRedirect(true);
+    }else {
+      alert('wrong credentials');
     }
-    if(redirect){
-      return <Navigate to={'/'} />
-    }
+   
   
      
   }
 
+  if(redirect){
+    return <Navigate to={'/'} />
+  }
     return(
       
         <form className="login" onSubmit={login}>

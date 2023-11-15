@@ -2,9 +2,9 @@ const  express= require('express');
 const cors =require('cors');
 const mongoose = require("mongoose");
 const User=require('./models/User');
-const bcrypt= require('bcryptjs')
+const bcrypt= require('bcryptjs');
 const app = express();
-const jwt = require('jsonwebtoken')
+const jwt = require('jsonwebtoken');
 
 //encriptacion aleatoria bcrypt
 const salt = bcrypt.genSaltSync(10);
@@ -39,7 +39,8 @@ app.post('/login', async (req,res) =>{
     if (passOk) {
         jwt.sign({username,id:userDoc._id}, secret, {},(err,token) =>{
             if(err) throw err;
-            res.json(token);
+            res.cookie('token',token).json('ok');
+           
         });
         
     } else {

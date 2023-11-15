@@ -9,17 +9,18 @@ export default function RegisterPage() {
         ev.preventDefault();
 
 
+
          //solicitud POST al servidor 
       const response = await fetch('http://localhost:4000/register', {
         method:'POST',
         body: JSON.stringify({username,password}),
         headers:{'Content-Type':'application/json'},
-    })
+    });
 
       if(response.status === 200){
-        alert('Registrado correctamente');
+        alert('Registrado correctamente'); 
       }else{
-        alert('Usuario ya existente');
+                    alert('registration failed ya existente'); 
       }
     
        
