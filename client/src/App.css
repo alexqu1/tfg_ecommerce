@@ -33,6 +33,8 @@ header a.logo{
 
 header nav {
   display: flex;
+  align-items: center;
+  
   gap: 15px;
 }
 
@@ -59,11 +61,13 @@ div.post div.texts a{
 }
 
 div.post p.info{
+
   margin:6px 0;
   color: #888;
   font-size: .7em;
   font-weight:bold;
   display: flex;
+
   gap: 10px;
 }
 
@@ -129,17 +133,25 @@ div.post-page h1{
   margin: 10px 0 5px;
 }
 
-div.post-page time{
-  text-align: center;
-  display:  block;
-  font-size: .8em;
-}
 
-div.post-page div.author{
+
+div.post-page p.info{
   text-align: center;
-  margin-bottom: 20px;
-  font-size: .7em;
+  display: flex;
+  flex-direction: column;
+  gap:5px;
+  font-size: .9em;
+
+}
+div.post-page time{
+  
+}
+div.post-page .ciudad{
   font-weight: bold;
+  text-transform: uppercase;
+}
+div.post-page div.author{
+
 }
 
 div.post-page div.content p {

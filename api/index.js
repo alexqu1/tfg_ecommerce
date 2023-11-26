@@ -100,11 +100,12 @@ app.post('/post', uploadMiddleware.single('file'), async (req, res) => {
   const { token } = req.cookies;
   jwt.verify(token, secret, {}, async (err, info) => {
     if (err) throw err;
-    const { title, summary, content } = req.body;
+    const { title, summary, content,city } = req.body;
     const postDoc = await Post.create({
       title,
       summary,
       content,
+      city,
       cover: newPath,
       author: info.id,
     });
@@ -126,7 +127,7 @@ app.put('/post', uploadMiddleware.single('file'), async (req, res) => {
   const { token } = req.cookies;
   jwt.verify(token, secret, {}, async (err, info) => {
     if (err) throw err;
-    const { id, title, summary, content } = req.body;
+    const { id, title, summary, content,city } = req.body;
     const postDoc = await Post.findById(id);
     const isAuthor = JSON.stringify(postDoc.author) === JSON.stringify(info.id);
     if (!isAuthor) {
@@ -139,6 +140,7 @@ app.put('/post', uploadMiddleware.single('file'), async (req, res) => {
       title,
       summary,
       content,
+      city,
       cover: newPath ? newPath : postDoc.cover,
     });
 
@@ -163,7 +165,19 @@ app.get('/post/:id', async (req, res) => {
   res.json(postDoc);
 });
 
+app.get('/search/', async (req, res) => {
+  const query = req.query;  
+  try {
+      const searchFilter = {
+          city: { $regex: query.search, $options: "i" }
+      };
+      const posts = await Post.find(query.search ? searchFilter : {}); // Usar un objeto vacío si no hay filtro
 
+      res.status(200).json(posts);
+  } catch (error) {
+      res.status(500).json(error);
+  }
+});
 
 // Configuración del servidor para escuchar en el puerto 4000
 app.listen(4000);
