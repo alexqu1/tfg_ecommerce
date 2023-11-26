@@ -1,21 +1,25 @@
-export default function Post() {
-        return (
-            <div className="post">
-            <div className="image">
-              <img src="https://www.gradhermetic.com/sites/default/files/2020-04/Edificios%20de%20cristal.%20%20En%20Gradhermetic%20nos%20cuestionamos%20si%20son%20realmente%20eficientes.jpg">
-              </img>
-              </div>
-              <div className="texts">
-              <h2>Unos dibujos de los 2000 que vuelven con fuerza</h2>
-              <p className="info">
-                <a className="author">Alex Diaz</a>
-                <time>2023-01-06  23:43</time>
-              </p>
-            <p className="summary">infobarrio.es tenemos toda la informacion sobre los barrios 
-            enemos toda la informacion sobre los barri
-            enemos toda la informacion sobre los barri
-            </p>
-            </div>
-            </div>
-        )
+import {formatISO9075} from "date-fns";
+import {Link} from "react-router-dom";
+
+export default function Post({_id,title,summary,cover,content,createdAt,author}) {
+
+  return (
+    <div className="post">
+      <div className="image">
+        <Link to={`/post/${_id}`}>
+          <img src={'http://localhost:4000/'+cover} alt=""/>
+        </Link>
+      </div>
+      <div className="texts">
+        <Link to={`/post/${_id}`}>
+        <h2>{title}</h2>
+        </Link>
+        <p className="info">
+           <a className="author">{author.username}</a>  
+          <time>{formatISO9075(new Date(createdAt))}</time>
+        </p>
+        <p className="summary">{summary}</p>
+      </div>
+    </div>
+  );
 }

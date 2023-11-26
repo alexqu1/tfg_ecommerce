@@ -1,42 +1,75 @@
-import { useEffect, useState } from "react";
+// Importar módulos y componentes necesarios de React y otras bibliotecas
 import { Link } from "react-router-dom";
+import { useContext, useEffect } from "react";
+import { UserContext } from "./UserContext";
+import Button from '@mui/material/Button';
 
+// Componente funcional para el encabezado
 export default function Header() {
-    const [username, setUsername] = useState(null);
+  // Desestructurar valores del contexto de usuario
+  const { setUserInfo, userInfo } = useContext(UserContext);
 
-    useEffect(() => {
-        fetch('http://localhost:4000/profile', {
-            credentials: 'include',
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error("Network response was not ok");
-            }
-            return response.json();
-        })
-        .then(userInfo => {
-            setUsername(userInfo.username); // Actualizar el estado con el nombre de usuario
-        })
-        .catch(error => {
-            console.error('Error fetching profile:', error);
-        });
-    }, []); // La dependencia vacía asegura que useEffect se ejecute solo una vez al montar el componente
+  // El gancho useEffect para obtener la información del perfil del usuario cuando el componente se monta
+  useEffect(() => {
+    // Obtener el perfil del usuario desde el servidor
+    fetch('http://localhost:4000/profile', {
+      credentials: 'include',
+    }).then(response => {
+      response.json().then(userInfo => {
+        // Establecer la información del usuario en el contexto
+        setUserInfo(userInfo);
+      });
+    });
+  }, []); // El array de dependencias vacío asegura que este efecto se ejecute solo una vez al montar
 
-    return (
-        <header>
-            <Link to="/" className="logo">Mi Blog</Link>
-            <nav>
-                {username ? (
-                    <>
-                        <Link to="/create">Crear nuevo post</Link>
-                    </>
-                ) : (
-                    <>
-                        <Link to="/login">Iniciar Sesión</Link>
-                        <Link to="/register">Registro</Link>
-                    </>
-                )}
-            </nav>
-        </header>
-    );
+  // Función para manejar el cierre de sesión del usuario
+  function logout() {
+    // Realizar una solicitud POST al punto final de cierre de sesión
+    fetch('http://localhost:4000/logout', {
+      credentials: 'include',
+      method: 'POST',
+    });
+
+    // Borrar la información del usuario 
+    setUserInfo(null);
+
+    // Recargar la página y redirigir a '/'
+    window.location.reload();
+  }
+
+  // Obtener el nombre de usuario desde la información del usuario
+  const username = userInfo?.username;
+
+ 
+  return (
+    <header>
+      {/* Enlace a la página de inicio con el logotipo */}
+      <Link to="/" className="logo">MyBlog</Link>
+
+      {/* Sección de navegación */}
+      <nav>
+        {/* Si un usuario ha iniciado sesión */}
+        {username && (
+          <>
+        
+            <Link to="/create"><Button variant="contained">Crear nueva publicación</Button></Link>
+
+        
+            <a onClick={logout}> Cerrar sesión ({username}) </a>
+          </>
+        )}
+
+        {/* Si no hay ningún usuario conectado */}
+        {!username && (
+          <>
+       
+            <Link to="/login"><Button variant="contained" color="inherit"> Iniciar sesión </Button></Link>
+
+           
+            <Link to="/register"><Button variant="contained" color="info"> Registrarse </Button></Link>
+          </>
+        )}
+      </nav>
+    </header>
+  );
 }
