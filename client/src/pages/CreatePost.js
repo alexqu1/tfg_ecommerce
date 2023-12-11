@@ -54,7 +54,7 @@ export default function CreatePost() {
 
 
   return (
-    <form onSubmit={createNewPost}>
+    <form className='crearanuncio' onSubmit={createNewPost}>
     <h2>Crear nuevo anuncio</h2>
 
     <TextField
@@ -63,13 +63,16 @@ export default function CreatePost() {
         label="Titulo"
         variant="filled"
         margin="dense"
-        maxLength="100"
+        required
+      
         fullWidth
         onChange={ev => setTitle(ev.target.value)}
+        inputProps={{ maxLength: 100 }}
         InputProps={{
-          style: { color: 'black', 
-          backgroundColor: 'white'
-        },
+          style: {
+            color: 'black',
+            backgroundColor: 'white'
+          },
           
         }}
         InputLabelProps={{
@@ -92,14 +95,17 @@ export default function CreatePost() {
         id="outlined-basic"
         label="Resumen"
         variant="filled"
+        required
         margin="dense"
-        maxLength="150"
+      
         fullWidth
         onChange={ev => setSummary(ev.target.value)}
+        inputProps={{ maxLength: 130 }}
         InputProps={{
-          style: { color: 'black', 
-          backgroundColor: 'white'
-        },
+          style: {
+            color: 'black',
+            backgroundColor: 'white'
+          },
           
         }}
         InputLabelProps={{
@@ -119,27 +125,7 @@ export default function CreatePost() {
       /> */}
 
 
-<TextField
-        type="text"
-        id="outlined-basic"
-        label="Resumen"
-        variant="filled"
-        margin="dense"
-     
-        fullWidth
-        onChange={ev => setCity(ev.target.value)}
-        InputProps={{
-          style: { color: 'black', 
-          backgroundColor: 'white'
-        },
-          
-        }}
-        InputLabelProps={{
-          style: { color: 'black', 
-         
-          },
-        }}
-      />
+
 
 
 {/* <input
@@ -158,7 +144,7 @@ export default function CreatePost() {
         label="Ciudad"
         variant="filled"
         margin="dense"
-     
+        required
         fullWidth
         onChange={ev => setCity(ev.target.value)}
         InputProps={{
@@ -190,7 +176,7 @@ export default function CreatePost() {
         label="Precio"
         variant="filled"
         margin="dense"
-     
+        required
         fullWidth
         onChange={ev => setPrice(ev.target.value)}
         InputProps={{
@@ -225,7 +211,7 @@ export default function CreatePost() {
         label="Metros cuadrados"
         variant="filled"
         margin="dense"
-     
+        required
         fullWidth
         onChange={ev => setMeter(ev.target.value)}
         InputProps={{
@@ -252,7 +238,7 @@ export default function CreatePost() {
         label="Habitaciones"
         variant="filled"
         margin="dense"
-     
+        required
         fullWidth
         onChange={ev => setRoom(ev.target.value)}
         InputProps={{
@@ -290,7 +276,7 @@ export default function CreatePost() {
         label="Planta"
         variant="filled"
         margin="dense"
-     
+        required
         fullWidth
         onChange={ev => setFloor(ev.target.value)}
         InputProps={{
@@ -309,12 +295,13 @@ export default function CreatePost() {
 
       <input
         type="file"
+        required
         onChange={ev => setFiles(ev.target.files)}
       />
       {/* Editor de texto enriquecido para el contenido de la publicación */}
       <Editor value={content} onChange={setContent} />
       
-      <button style={{ marginTop: '5px' }}>Crear publicación</button>
+      <button>CREAR </button>
     </form>
   );
 }

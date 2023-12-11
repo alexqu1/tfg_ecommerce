@@ -37,12 +37,15 @@ const handleSearchSubmit = async (event) => {
   return (
     <div>
       <div className="imagenConBuscar">
+  
       {/* Formulario de búsqueda */}
       <form onSubmit={handleSearchSubmit}>
+      <h1>Estrena tu nuevo hogar</h1>
         <input
           placeholder="Búsqueda"
           type="text"
           value={searchTerm}
+          className="inputindex"
           onChange={handleSearchChange}
         />
         <Button type="submit" variant="contained">
@@ -50,6 +53,17 @@ const handleSearchSubmit = async (event) => {
         </Button>
       </form>
       </div>
+{/* 
+      <div className="contenedorIndex">
+      <div>
+
+      </div>
+      <div>
+        <p>Trabajamos con todos los bancos para conseguir tu mejor hipoteca valoramos gratuitamente tu casa </p>
+      </div>
+      </div> */}
+
+
       {/* Mostrar alerta si no hay resultados */}
       {showNoResultsAlert && (
         <Alert severity="error" color="info">
@@ -68,6 +82,7 @@ const handleSearchSubmit = async (event) => {
           </ul>
         </div>
       )}
+          
     </div>
   );
             }

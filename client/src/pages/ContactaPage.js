@@ -13,7 +13,7 @@ export default function ContactaPage() {
 
     return (
         <div className="contact-page">
-            <h1>CONTACTA </h1>
+            <h1 style={{ fontSize: '40px' }}>CONTACTA </h1>
          <TextField
         type="text"
         id="outlined-basic"

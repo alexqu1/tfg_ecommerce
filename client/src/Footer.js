@@ -40,7 +40,7 @@ export default function Footer() {
           <p>
             <IconButton color="inherit" fontSize="small"> <Email/> </IconButton>
           </p>
-          <p><a href="mailto:support@company.com">Miemail@company.com</a></p>
+          <p><a href="mailto:Housestate@gmail.com">HouseState@gmail.com</a></p>
         </div>
       </div>
 

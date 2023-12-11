@@ -66,7 +66,7 @@ export default function Header() {
        <div>
         {username && (
           <>
-             <Link to="/MyAdvertisementsPage"><Button variant="outlined" color="inherit">Mis propiedades</Button></Link>
+             <Link to="/MyAdvertisementsPage"><Button variant="outlined" color="inherit">Mis anuncios publicados</Button></Link>
 
             <Link to="/create"><Button variant="contained">Crear nueva publicación</Button></Link>
 

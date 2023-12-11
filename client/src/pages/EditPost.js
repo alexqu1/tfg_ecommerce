@@ -81,21 +81,26 @@ export default function EditPost() {
 
   // JSX para renderizar el formulario de edición de la publicación
   return (
-    <form onSubmit={updatePost}>
+    <form className='crearanuncio' onSubmit={updatePost}>
+      <h2>Editar anuncio</h2>
       {/* Campo de entrada para el título */}
       <TextField
         type="text"
         id="outlined-basic"
         label="Titulo"
         variant="filled"
+        value={title}
+        required
         margin="dense"
         maxLength="100"
         fullWidth
         onChange={ev => setTitle(ev.target.value)}
+        inputProps={{ maxLength: 100 }}
         InputProps={{
-          style: { color: 'black', 
-          backgroundColor: 'white'
-        },
+          style: {
+            color: 'black',
+            backgroundColor: 'white'
+          },
           
         }}
         InputLabelProps={{
@@ -118,14 +123,18 @@ export default function EditPost() {
         id="outlined-basic"
         label="Resumen"
         variant="filled"
+        required
         margin="dense"
-        maxLength="150"
+        value={summary}
+
         fullWidth
         onChange={ev => setSummary(ev.target.value)}
+        inputProps={{ maxLength: 130 }}
         InputProps={{
-          style: { color: 'black', 
-          backgroundColor: 'white'
-        },
+          style: {
+            color: 'black',
+            backgroundColor: 'white'
+          },
           
         }}
         InputLabelProps={{
@@ -148,10 +157,11 @@ export default function EditPost() {
 <TextField
         type="text"
         id="outlined-basic"
-        label="Resumen"
+        label="ciudad"
         variant="filled"
         margin="dense"
-     
+        value={city}
+        required
         fullWidth
         onChange={ev => setCity(ev.target.value)}
         InputProps={{
@@ -184,7 +194,8 @@ export default function EditPost() {
         label="Ciudad"
         variant="filled"
         margin="dense"
-     
+        value={city}
+        required
         fullWidth
         onChange={ev => setCity(ev.target.value)}
         InputProps={{
@@ -216,7 +227,8 @@ export default function EditPost() {
         label="Precio"
         variant="filled"
         margin="dense"
-     
+        value={price}
+        required
         fullWidth
         onChange={ev => setPrice(ev.target.value)}
         InputProps={{
@@ -251,7 +263,8 @@ export default function EditPost() {
         label="Metros cuadrados"
         variant="filled"
         margin="dense"
-     
+        required
+        value={meter}
         fullWidth
         onChange={ev => setMeter(ev.target.value)}
         InputProps={{
@@ -277,8 +290,9 @@ export default function EditPost() {
         id="outlined-basic"
         label="Habitaciones"
         variant="filled"
+        required
         margin="dense"
-     
+        value={room}
         fullWidth
         onChange={ev => setRoom(ev.target.value)}
         InputProps={{
@@ -316,7 +330,8 @@ export default function EditPost() {
         label="Planta"
         variant="filled"
         margin="dense"
-     
+        required
+        value={floor}
         fullWidth
         onChange={ev => setFloor(ev.target.value)}
         InputProps={{
@@ -335,12 +350,13 @@ export default function EditPost() {
       {/* Campo de entrada para seleccionar archivos */}
       <input
         type="file"
+        
         onChange={ev => setFiles(ev.target.files)}
       />
       {/* Editor de texto enriquecido para el contenido de la publicación */}
       <Editor onChange={setContent} value={content} />
       {/* Botón para actualizar la publicación */}
-      <button style={{ marginTop: '5px' }}>Actualizar publicación</button>
+      <button style={{ marginTop: '5px' }}>Actualizar </button>
     </form>
   );
 }
