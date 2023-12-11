@@ -52,20 +52,22 @@ export default function Header() {
   return (
     <header>
       {/* Enlace a la página de inicio con el logotipo */}
-      <Link to="/" className="logo">MyBlog</Link>
+      <Link to="/" className="logo">  <h3>House<span>State</span></h3></Link>
 
       {/* Sección de navegación */}
       <nav>
        
       <Link to="/" className="Inicio"><Button variant="text" color="inherit" > Inicio</Button></Link>
 
-      <Link to="/ultimosPost"><Button variant="text" color="warning">Ultimos Post</Button></Link>
-      <Link to="/contactaPage"><Button variant="text">Contacta</Button></Link>
+      <Link to="/ultimosPost"><Button variant="text" color="inherit">Ultimos Anuncios</Button></Link>
+      <Link to="/contactaPage"><Button variant="inherit">Contacta</Button></Link>
 
         {/* Si un usuario ha iniciado sesión */}
+       <div>
         {username && (
           <>
-        
+             <Link to="/MyAdvertisementsPage"><Button variant="outlined" color="inherit">Mis propiedades</Button></Link>
+
             <Link to="/create"><Button variant="contained">Crear nueva publicación</Button></Link>
 
         
@@ -83,7 +85,7 @@ export default function Header() {
             <Link to="/register"><Button variant="contained" color="info"> Registrarse </Button></Link>
           </>
         )}
-
+      </div>
 
 
     

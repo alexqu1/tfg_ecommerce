@@ -1436,6 +1436,25 @@
   resolved "https://registry.yarnpkg.com/@floating-ui/utils/-/utils-0.1.6.tgz#22958c042e10b67463997bd6ea7115fe28cbcaf9"
   integrity sha512-OfX7E2oUDYxtBvsuS4e/jSn4Q9Qb6DzgeYtsAdkPZ47znpoNsMgZw0+tVijiv3uGNR6dgNlty6r9rzIzHjtd/A==
 
+"@fortawesome/fontawesome-common-types@6.5.0":
+  version "6.5.0"
+  resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-common-types/-/fontawesome-common-types-6.5.0.tgz#5d3912d28a2fb3e6c867320eb27a71f23e7bcb29"
+  integrity sha512-vYC8oN2l8meu05sRi1j3Iie/HNFAeIxpitYFhsUrBc11TxiMken9QdXnSQ0q16FYsOSt/6soxs5ghdk+VYGiog==
+
+"@fortawesome/fontawesome-svg-core@^6.5.0":
+  version "6.5.0"
+  resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-svg-core/-/fontawesome-svg-core-6.5.0.tgz#4957e163bb890963442c110c5290703af21803d9"
+  integrity sha512-5DrR+oxQr+ruRQ3CEVV8DSCT/q8Atm56+FzAs0P6eW/epW47OmecSpSwc/YTlJ3u5BfPKUBSGyPR2qjZ+5eIgA==
+  dependencies:
+    "@fortawesome/fontawesome-common-types" "6.5.0"
+
+"@fortawesome/free-brands-svg-icons@^6.5.0":
+  version "6.5.0"
+  resolved "https://registry.yarnpkg.com/@fortawesome/free-brands-svg-icons/-/free-brands-svg-icons-6.5.0.tgz#00ff5b4a0122b3e4cdb5c901cd97e769c133e183"
+  integrity sha512-LwIl3b5cH0xjmBS7mcy8+SsSsl/7J4xi3aP+Tr4rDUf2Tab8r1c8NcqC8wP5c+bgphGstyG3QPx7l4b9WtcO5Q==
+  dependencies:
+    "@fortawesome/fontawesome-common-types" "6.5.0"
+
 "@humanwhocodes/config-array@^0.11.13":
   version "0.11.13"
   resolved "https://registry.yarnpkg.com/@humanwhocodes/config-array/-/config-array-0.11.13.tgz#075dc9684f40a531d9b26b0822153c1e832ee297"
@@ -1769,6 +1788,13 @@
   version "5.14.18"
   resolved "https://registry.yarnpkg.com/@mui/core-downloads-tracker/-/core-downloads-tracker-5.14.18.tgz#f8b187dc89756fa5c0b7d15aea537a6f73f0c2d8"
   integrity sha512-yFpF35fEVDV81nVktu0BE9qn2dD/chs7PsQhlyaV3EnTeZi9RZBuvoEfRym1/jmhJ2tcfeWXiRuHG942mQXJJQ==
+
+"@mui/icons-material@^5.14.18":
+  version "5.14.18"
+  resolved "https://registry.yarnpkg.com/@mui/icons-material/-/icons-material-5.14.18.tgz#9e92964cde8c7ba32cf50438a83403dc283f2328"
+  integrity sha512-o2z49R1G4SdBaxZjbMmkn+2OdT1bKymLvAYaB6pH59obM1CYv/0vAVm6zO31IqhwtYwXv6A7sLIwCGYTaVkcdg==
+  dependencies:
+    "@babel/runtime" "^7.23.2"
 
 "@mui/joy@^5.0.0-beta.15":
   version "5.0.0-beta.15"
@@ -3046,7 +3072,7 @@ at-least-node@^1.0.0:
   resolved "https://registry.yarnpkg.com/at-least-node/-/at-least-node-1.0.0.tgz#602cd4b46e844ad4effc92a8011a3c46e0238dc2"
   integrity sha512-+q/t7Ekv1EDY2l6Gda6LLiX14rU9TV20Wa3ofeQmwPFZbOMo9DXrLbOjFaaclkXKWidIaopwAObQDqwWtGUjqg==
 
-autoprefixer@^10.4.13:
+autoprefixer@^10.4.13, autoprefixer@^10.4.16:
   version "10.4.16"
   resolved "https://registry.yarnpkg.com/autoprefixer/-/autoprefixer-10.4.16.tgz#fad1411024d8670880bdece3970aa72e3572feb8"
   integrity sha512-7vd3UC6xKp0HLfua5IjZlcXvGAGy7cBAXTg2lyQ/8WpNhd6SiZ8Be+xm3FyBSYJx5GKcpRCzBh7RH4/0dnY+uQ==
@@ -7896,7 +7922,7 @@ postcss@^7.0.35:
     picocolors "^0.2.1"
     source-map "^0.6.1"
 
-postcss@^8.3.5, postcss@^8.4.21, postcss@^8.4.23, postcss@^8.4.4:
+postcss@^8.3.5, postcss@^8.4.21, postcss@^8.4.23, postcss@^8.4.31, postcss@^8.4.4:
   version "8.4.31"
   resolved "https://registry.yarnpkg.com/postcss/-/postcss-8.4.31.tgz#92b451050a9f914da6755af352bdc0192508656d"
   integrity sha512-PS08Iboia9mts/2ygV3eLpY5ghnUcfLV/EXTOW1E2qYxJKGGBUtNjN76FYHnMs36RmARn41bC0AZmn+rR0OVpQ==
@@ -9133,7 +9159,7 @@ symbol-tree@^3.2.4:
   resolved "https://registry.yarnpkg.com/symbol-tree/-/symbol-tree-3.2.4.tgz#430637d248ba77e078883951fb9aa0eed7c63fa2"
   integrity sha512-9QNk5KwDF+Bvz+PyObkmSYjI5ksVUYtjW7AU22r2NKcfLJcXp96hkDWU3+XndOsUb+AQ9QhfzfCT2O+CNWT5Tw==
 
-tailwindcss@^3.0.2:
+tailwindcss@^3.0.2, tailwindcss@^3.3.5:
   version "3.3.5"
   resolved "https://registry.yarnpkg.com/tailwindcss/-/tailwindcss-3.3.5.tgz#22a59e2fbe0ecb6660809d9cc5f3976b077be3b8"
   integrity sha512-5SEZU4J7pxZgSkv7FP1zY8i2TIAOooNZ1e/OGtxIEv6GltpoiXUqWvLy89+a10qYTB1N5Ifkuw9lqQkN9sscvA==

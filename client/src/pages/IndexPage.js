@@ -2,7 +2,6 @@ import Post from "../Post";
 import { useEffect, useState } from "react";
 import Button from '@mui/material/Button';
 import Alert from '@mui/material/Alert';
-import Stack from '@mui/material/Stack';
 
 // Componente para la página principal (índice)
 export default function IndexPage() {
@@ -37,6 +36,7 @@ const handleSearchSubmit = async (event) => {
 
   return (
     <div>
+      <div className="imagenConBuscar">
       {/* Formulario de búsqueda */}
       <form onSubmit={handleSearchSubmit}>
         <input
@@ -49,7 +49,7 @@ const handleSearchSubmit = async (event) => {
           Buscar
         </Button>
       </form>
-  
+      </div>
       {/* Mostrar alerta si no hay resultados */}
       {showNoResultsAlert && (
         <Alert severity="error" color="info">

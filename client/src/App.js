@@ -12,6 +12,7 @@ import PostPage from "./pages/PostPage";
 import EditPost from "./pages/EditPost";
 import UltimosPost from "./pages/UltimosPost";
 import ContactaPage from "./pages/ContactaPage";
+import MyAdvertisementsPage from "./pages/MyAdvertisementsPage";
 
 function App() {
   return (
@@ -24,7 +25,7 @@ function App() {
           <Route path="/create" element={<CreatePost />} />
           <Route path="/ultimosPost" element={<UltimosPost/>} />
           <Route path="/contactaPage" element={<ContactaPage/>} />
-
+          <Route path="/MyAdvertisementsPage" element={<MyAdvertisementsPage/>} />
           <Route path="/post/:id" element={<PostPage />} />
           <Route path="/edit/:id" element={<EditPost />} />
         </Route>

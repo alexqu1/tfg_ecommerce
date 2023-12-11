@@ -5,10 +5,15 @@ import {useParams} from "react-router-dom";
 import {formatISO9075} from "date-fns";
 import {UserContext} from "../UserContext";
 import {Link} from 'react-router-dom';
-
+import { Navigate } from "react-router-dom";
+import PlaceIcon from '@mui/icons-material/Place';
+import DeleteIcon from '@mui/icons-material/Delete';
+import CreateIcon from '@mui/icons-material/Create';
 export default function PostPage() {
   const [postInfo, setPostInfo] = useState(null);
   const { userInfo } = useContext(UserContext);
+  const [redirect, setRedirect] = useState(false);
+
   const { id } = useParams();
 
   useEffect(() => {
@@ -34,6 +39,20 @@ export default function PostPage() {
   }, [id]);
   // Agregar id al array de dependencias
 
+
+  const handleDelete = () => {
+    fetch(`http://localhost:4000/delete/${postInfo._id}`, {
+      method: 'DELETE',
+      credentials: 'include',
+    })
+     
+      .catch((error) => {
+        // Manejar errores de red u otros errores
+        console.error('Error deleting post:', error);
+      });
+  };
+
+
   // Verificar si postInfo es nulo antes de intentar acceder a sus propiedades
   if (!postInfo) return 'Cargando...';
 
@@ -41,29 +60,36 @@ export default function PostPage() {
     <div className="post-page">
       <h1>{postInfo.title}</h1>
       <p className="info">
-         <div className="ciudad">{postInfo.city}</div> 
-        <time>{formatISO9075(new Date(postInfo.createdAt))}</time>
+         <div className="ciudad"><PlaceIcon/>{postInfo.city}</div> 
+        <time>Anuncio creado : {formatISO9075(new Date(postInfo.createdAt))}</time>
         {postInfo.author && (
-          <div className="author">por @{postInfo.author.username}</div>
+          <div className="author">Anunciante: <b>{postInfo.author.username}</b></div>
         )}
 
        
       </p>
 
       {userInfo.id && postInfo.author && userInfo.id === postInfo.author._id && (
-        <div className="edit-row">
+        <div className="botonesAdminPostpage">
+      <Link className="delete-btn" to={`/MyAdvertisementsPage`}>  
+          <button  onClick={handleDelete}>
+       <DeleteIcon/> Descartar
+    </button>
+</Link>
+
+    
           <Link className="edit-btn" to={`/edit/${postInfo._id}`}>
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
-            </svg>
-            Editar esta publicación
+            <button>
+            <CreateIcon/> Editar 
+            </button>
           </Link>
+
         </div>
       )}
       <div className="image">
         <img src={`http://localhost:4000/${postInfo.cover}`} alt="" />
       </div>
-      <div className="content" dangerouslySetInnerHTML={{ __html: postInfo.content }} />
+      <div className="contentPostPage" dangerouslySetInnerHTML={{ __html: postInfo.content }} />
     </div>
   );
   

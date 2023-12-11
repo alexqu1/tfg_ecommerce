@@ -6,6 +6,10 @@ const PostSchema = new Schema({
   summary:String,
   content:String,
   city:String,
+  room:Number,
+  floor:Number,
+  price:Number,
+  meter:Number,
   cover:String,
   author:{type:Schema.Types.ObjectId, ref:'User'},
 }, {

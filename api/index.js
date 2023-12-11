@@ -43,6 +43,11 @@ app.post('/register', async (req, res) => {
 app.post('/login', async (req, res) => {
   const { username, password } = req.body;
   const userDoc = await User.findOne({ username });
+  if (!userDoc) {
+    // Usuario no encontrado
+    return res.status(400).json({ error: 'User not found', message: 'Invalid username or password' });
+  }
+
   const passOk = bcrypt.compareSync(password, userDoc.password);
   if (passOk) {
     // Usuario autenticado
@@ -57,8 +62,6 @@ app.post('/login', async (req, res) => {
     res.status(400).json('Wrong credentials');
   }
 });
-
-
 
 // Obtener perfil del usuario
 app.get('/profile', (req, res) => {
@@ -76,17 +79,13 @@ app.get('/profile', (req, res) => {
     });
   } else {
     // Manejar el caso en el que el token no está presente
-   
+    res.status(401).json({ error: 'Token not present', message: 'User not authenticated' });
   }
 });
-
-
-
 
 // Cierre de sesión
 app.post('/logout', (req, res) => {
   res.cookie('token', '').json('OK');
-  
 });
 
 // Crear un nuevo post
@@ -100,12 +99,16 @@ app.post('/post', uploadMiddleware.single('file'), async (req, res) => {
   const { token } = req.cookies;
   jwt.verify(token, secret, {}, async (err, info) => {
     if (err) throw err;
-    const { title, summary, content,city } = req.body;
+    const { title, summary, content, city , room,floor,price,meter } = req.body;
     const postDoc = await Post.create({
       title,
       summary,
       content,
       city,
+      room,
+      floor,
+      price,
+      meter,
       cover: newPath,
       author: info.id,
     });
@@ -127,7 +130,7 @@ app.put('/post', uploadMiddleware.single('file'), async (req, res) => {
   const { token } = req.cookies;
   jwt.verify(token, secret, {}, async (err, info) => {
     if (err) throw err;
-    const { id, title, summary, content,city } = req.body;
+    const { id, title, summary, content, city, room,floor,price,meter } = req.body;
     const postDoc = await Post.findById(id);
     const isAuthor = JSON.stringify(postDoc.author) === JSON.stringify(info.id);
     if (!isAuthor) {
@@ -141,6 +144,10 @@ app.put('/post', uploadMiddleware.single('file'), async (req, res) => {
       summary,
       content,
       city,
+      room,
+      floor,
+      price,
+      meter,
       cover: newPath ? newPath : postDoc.cover,
     });
 
@@ -158,7 +165,61 @@ app.get('/post', async (req, res) => {
   );
 });
 
-//Obtener un post por ID
+
+//obtener los post por autor
+
+app.get('/findAuthor', async (req, res) => {
+  try {
+    const { author } = req.query;
+    console.log('Received findAuthor request for author ID:', author); // Agrega este log para depurar
+
+    // Verifica que el parámetro 'author' esté presente y sea un ID válido
+    if (!author || !mongoose.Types.ObjectId.isValid(author)) {
+      return res.status(400).json({ error: 'Invalid author ID' });
+    }
+
+    const posts = await Post.find({ author })
+      .populate('author', ['username'])
+      .sort({ createdAt: -1 })
+      .limit(20);
+
+    res.json(posts);
+  } catch (error) {
+    console.error("Error fetching posts:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+
+
+
+// Borrar post
+app.delete('/delete/:id', async (req, res) => {
+  const postId = req.params.id;
+
+  if (!mongoose.Types.ObjectId.isValid(postId)) {
+    return res.status(400).json({ error: 'Invalid post ID' });
+  }
+
+  try {
+    const result = await Post.deleteOne({ _id: postId });
+
+    if (result.deletedCount === 1) {
+      res.json({ success: true, message: 'Publicación eliminada exitosamente' });
+    } else {
+      res.status(404).json({ error: 'No se encontró la publicación para eliminar' });
+    }
+  } catch (error) {
+    console.error('Error al intentar eliminar la publicación:', error);
+    res.status(500).json({ error: 'Error interno del servidor' });
+  }
+});
+
+
+
+
+
+// Obtener un post por ID
 app.get('/post/:id', async (req, res) => {
   const { id } = req.params;
   const postDoc = await Post.findById(id).populate('author', ['username']);
@@ -166,16 +227,15 @@ app.get('/post/:id', async (req, res) => {
 });
 
 app.get('/search/', async (req, res) => {
-  const query = req.query;  
+  const query = req.query;
   try {
-      const searchFilter = {
-          city: { $regex: query.search, $options: "i" }
-      };
-      const posts = await Post.find(query.search ? searchFilter : {}); // Usar un objeto vacío si no hay filtro
-
-      res.status(200).json(posts);
+    const searchFilter = {
+      city: { $regex: query.search, $options: "i" }
+    };
+    const posts = await Post.find(query.search ? searchFilter : {}); // Usar un objeto vacío si no hay filtro
+    res.status(200).json(posts);
   } catch (error) {
-      res.status(500).json(error);
+    res.status(500).json(error);
   }
 });
 
