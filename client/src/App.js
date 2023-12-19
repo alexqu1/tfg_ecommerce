@@ -12,6 +12,8 @@ import PostPage from "./pages/PostPage";
 import EditPost from "./pages/EditPost";
 import UltimosPost from "./pages/UltimosPost";
 import ContactaPage from "./pages/ContactaPage";
+import PanelAdmin from "./pages/PanelAdmin";
+
 import MyAdvertisementsPage from "./pages/MyAdvertisementsPage";
 
 function App() {
@@ -23,6 +25,8 @@ function App() {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/create" element={<CreatePost />} />
+          <Route path="/panelAdmin" element={<PanelAdmin/>} />
+
           <Route path="/ultimosPost" element={<UltimosPost/>} />
           <Route path="/contactaPage" element={<ContactaPage/>} />
           <Route path="/MyAdvertisementsPage" element={<MyAdvertisementsPage/>} />

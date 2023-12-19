@@ -132,13 +132,23 @@ app.put('/post', uploadMiddleware.single('file'), async (req, res) => {
     if (err) throw err;
     const { id, title, summary, content, city, room,floor,price,meter } = req.body;
     const postDoc = await Post.findById(id);
-    const isAuthor = JSON.stringify(postDoc.author) === JSON.stringify(info.id);
-    if (!isAuthor) {
-      return res.status(400).json('You are not the author');
-    }
+    // const isAuthor = JSON.stringify(postDoc.author) === JSON.stringify(info.id);
+    // if (!isAuthor) {
+    //   return res.status(400).json('You are not the author');
+    // }
+
+
+
+  // Verificar si el usuario es el autor original o si es "admin"
+  const isAuthorOrAdmin = JSON.stringify(postDoc.author) === JSON.stringify(info.id) || info.username === 'admin';
+
+  if (!isAuthorOrAdmin) {
+    return res.status(400).json('You are not authorized to edit this post');
+  }
+
     await Post.updateOne({
       _id: id,
-      author: info.id,
+      // author: info.id,
     }, {
       title,
       summary,
@@ -236,6 +246,41 @@ app.get('/search/', async (req, res) => {
     res.status(200).json(posts);
   } catch (error) {
     res.status(500).json(error);
+  }
+});
+
+
+
+// Obtener todos los usuarios
+app.get('/user', async (req, res) => {
+  try {
+    const users = await User.find({ username: { $ne: 'admin' } }); // $ne significa "not equal"
+    res.json(users);
+  } catch (error) {
+    console.error("Error fetching users:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+
+// Borrar post
+app.delete('/borrarUser/:username', async (req, res) => {
+  const usernameToDelete = req.params.username;
+  console.log('Username to delete:', usernameToDelete);
+
+  try {
+    const result = await User.deleteOne({ username: usernameToDelete });
+    console.log('Delete result:', result);
+
+    if (result.deletedCount === 1) {
+      res.json({ success: true, message: 'Usuario eliminado exitosamente' });
+    } else {
+      console.log('User not found for deletion.');
+      res.status(404).json({ error: 'No se encontró el usuario para eliminar' });
+    }
+  } catch (error) {
+    console.error('Error al intentar eliminar el usuario:', error);
+    res.status(500).json({ error: 'Error interno del servidor', details: error.message });
   }
 });
 

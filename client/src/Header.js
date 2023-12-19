@@ -62,6 +62,11 @@ export default function Header() {
       <Link to="/ultimosPost"><Button variant="text" color="inherit">Ultimos Anuncios</Button></Link>
       <Link to="/contactaPage"><Button variant="inherit">Contacta</Button></Link>
 
+      {username && username === 'admin' && (
+  <Link to="/panelAdmin"><Button variant="outlined" color="inherit">Panel</Button></Link>
+)} 
+
+
         {/* Si un usuario ha iniciado sesión */}
        <div>
         {username && (
@@ -79,7 +84,7 @@ export default function Header() {
         {!username && (
           <>
        
-            <Link to="/login"><Button variant="contained" color="inherit"> Iniciar sesión </Button></Link>
+            <Link to="/login"><Button variant="contained" style={{ color: 'black' }} color="inherit"> Iniciar sesión </Button></Link>
 
            
             <Link to="/register"><Button variant="contained" color="info"> Registrarse </Button></Link>

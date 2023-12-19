@@ -55,43 +55,43 @@ export default function PostPage() {
 
   // Verificar si postInfo es nulo antes de intentar acceder a sus propiedades
   if (!postInfo) return 'Cargando...';
-
+  
   return (
     <div className="post-page">
       <h1>{postInfo.title}</h1>
       <p className="info">
-         <div className="ciudad"><PlaceIcon/>{postInfo.city}</div> 
-        <time>Anuncio creado : {formatISO9075(new Date(postInfo.createdAt))}</time>
+        <div className="ciudad"><PlaceIcon/>{postInfo.city}</div> 
+        <time>Anuncio creado: {formatISO9075(new Date(postInfo.createdAt))}</time>
         {postInfo.author && (
           <div className="author">Anunciante: <b>{postInfo.author.username}</b></div>
         )}
-
-       
       </p>
-
-      {userInfo.id && postInfo.author && userInfo.id === postInfo.author._id && (
-        <div className="botonesAdminPostpage">
-      <Link className="delete-btn" to={`/MyAdvertisementsPage`}>  
-          <button  onClick={handleDelete}>
-       <DeleteIcon/> Descartar
-    </button>
-</Link>
-
-    
-          <Link className="edit-btn" to={`/edit/${postInfo._id}`}>
-            <button>
-            <CreateIcon/> Editar 
-            </button>
-          </Link>
-
-        </div>
+  
+      {userInfo.id && postInfo.author && (
+        (userInfo.username === 'admin' || userInfo.id === postInfo.author._id) && (
+          <div className="botonesAdminPostpage">
+            <Link className="delete-btn" to={`/MyAdvertisementsPage`}>  
+              <button onClick={handleDelete}>
+                <DeleteIcon/> Descartar
+              </button>
+            </Link>
+  
+            <Link className="edit-btn" to={`/edit/${postInfo._id}`}>
+              <button>
+                <CreateIcon/> Editar 
+              </button>
+            </Link>
+          </div>
+        )
       )}
+  
       <div className="image">
         <img src={`http://localhost:4000/${postInfo.cover}`} alt="" />
       </div>
       <div className="contentPostPage" dangerouslySetInnerHTML={{ __html: postInfo.content }} />
     </div>
   );
+  
   
   
 }

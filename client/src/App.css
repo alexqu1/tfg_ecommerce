@@ -795,3 +795,25 @@ border-radius:5px 5px 0px 0px;
 padding: 17px;
 margin-top: 10px;
 }
+
+
+.userlist{
+  width: 100%;
+  font-weight: bold;
+  display: flex;
+
+  flex-direction: column;
+  gap: 20px;
+
+  align-items: center;
+  border:2px solid #638ECB;
+  padding: 15px;
+  border-radius: 10px;
+}
+.ButtondeleteUser{
+  background-color: rgb(244, 66, 66);
+  padding: 10px;
+  border-radius: 5px;
+}
+
+
